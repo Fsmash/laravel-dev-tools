@@ -121,13 +121,13 @@ class ComponentLspValidate extends BaseLspValidator
             $closingTags[] = [$cleaned, $item[1]];
             continue;
             /* if (!in_array('x-' . $cleaned, $availableComponents)) { */
-                // For now we do not provide this as it may be annoying?
-                /* $errors[] = new DiagnosticError( */
-                /*     error: 'Component not found: ' . $cleaned, */
-                /*     type: DiagnosticError::TYPE_NOT_EXISTING, */
-                /*     startPos: $item[1], */
-                /*     endPos: $item[1] + strlen($item[0]) */
-                /* ); */
+            // For now we do not provide this as it may be annoying?
+            /* $errors[] = new DiagnosticError( */
+            /*     error: 'Component not found: ' . $cleaned, */
+            /*     type: DiagnosticError::TYPE_NOT_EXISTING, */
+            /*     startPos: $item[1], */
+            /*     endPos: $item[1] + strlen($item[0]) */
+            /* ); */
             /* } */
         }
 
@@ -166,14 +166,15 @@ class ComponentLspValidate extends BaseLspValidator
             }
         }
 
-        foreach ($closingTags as $closingTag) {
-            $errors[] = new DiagnosticError(
-                error: 'Component opening not found: ' . $closingTag[0],
-                type: DiagnosticError::TYPE_UNOPENED,
-                startPos: $closingTag[1],
-                endPos: $closingTag[1] + strlen($closingTag[0])
-            );
-        }
+        // TODO: Fix regex for opening tags
+        // foreach ($closingTags as $closingTag) {
+        //     $errors[] = new DiagnosticError(
+        //         error: 'Component opening not found: ' . $closingTag[0],
+        //         type: DiagnosticError::TYPE_UNOPENED,
+        //         startPos: $closingTag[1],
+        //         endPos: $closingTag[1] + strlen($closingTag[0])
+        //     );
+        // }
 
         return $errors;
     }
