@@ -32,7 +32,6 @@ class Lsp extends Command
             $dumper->dump($cloner->cloneVar($var));
         });
 
-
         $logger = Logger::getLogger();
         LanguageServerBuilder::create(new BladeDispatcherFactory($logger), $logger)
             ->build()

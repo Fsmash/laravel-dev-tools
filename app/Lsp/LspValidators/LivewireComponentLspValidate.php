@@ -104,6 +104,9 @@ class LivewireComponentLspValidate extends BaseLspValidator
         $errors = [];
 
         foreach ($selfClosing[1] as $item) {
+            if ($item[0] === 'comments') {
+                continue;
+            }
             if (!in_array('livewire:' . $item[0], $componentNames)) {
                 $errors[] = new DiagnosticError(
                     error: 'Livewire Component not found: ' . $item[0],
@@ -124,13 +127,13 @@ class LivewireComponentLspValidate extends BaseLspValidator
             $closingTags[] = [$cleaned, $item[1]];
             continue;
             /* if (!in_array('x-' . $cleaned, $availableComponents)) { */
-                // For now we do not provide this as it may be annoying?
-                /* $errors[] = new DiagnosticError( */
-                /*     error: 'Component not found: ' . $cleaned, */
-                /*     type: DiagnosticError::TYPE_NOT_EXISTING, */
-                /*     startPos: $item[1], */
-                /*     endPos: $item[1] + strlen($item[0]) */
-                /* ); */
+            // For now we do not provide this as it may be annoying?
+            /* $errors[] = new DiagnosticError( */
+            /*     error: 'Component not found: ' . $cleaned, */
+            /*     type: DiagnosticError::TYPE_NOT_EXISTING, */
+            /*     startPos: $item[1], */
+            /*     endPos: $item[1] + strlen($item[0]) */
+            /* ); */
             /* } */
         }
 
@@ -156,6 +159,9 @@ class LivewireComponentLspValidate extends BaseLspValidator
             }
 
             if (!in_array('livewire:' . $item[0], $componentNames)) {
+                if ($item[0] === 'comments') {
+                    continue;
+                }
                 $errors[] = new DiagnosticError(
                     error: 'Livewire component not found: ' . $item[0],
                     type: DiagnosticError::TYPE_NOT_EXISTING,

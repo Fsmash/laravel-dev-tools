@@ -143,12 +143,15 @@ class ComponentLspValidate extends BaseLspValidator
             }
 
             if (!$isClosed) {
-                $errors[] = new DiagnosticError(
-                    error: 'Component not closed: ' . $item[0],
-                    type: DiagnosticError::TYPE_UNCLOSED,
-                    startPos: $item[1],
-                    endPos: $item[1] + strlen($item[0])
-                );
+                // Check that it is not a slot.
+                if (!str_starts_with($item[0], 'slot')) {
+                    $errors[] = new DiagnosticError(
+                        error: 'Component not closed: ' . $item[0],
+                        type: DiagnosticError::TYPE_UNCLOSED,
+                        startPos: $item[1],
+                        endPos: $item[1] + strlen($item[0])
+                    );
+                }
             }
 
             if (!in_array('x-' . $item[0], $availableComponents)) {
